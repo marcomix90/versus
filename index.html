@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1226">
+<meta name="description" content="VERSUS - das Duell-Spiel: Länder, Vereine und Tiere gegeneinander antreten lassen.">
+<title>VERSUS – A gegen B</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ Startbildschirm ============ -->
+<section id="screen-home" class="screen aktiv">
+  <header class="home-kopf">
+    <h1 class="logo"><span>VER</span><em>S</em><span>US</span></h1>
+    <p class="untertitel">Wer gewinnt das Duell?</p>
+  </header>
+
+  <div id="themen" class="themen"></div>
+
+  <footer class="home-fuss">
+    <button id="ton-schalter" class="mini-btn" type="button" aria-pressed="true">🔊 Ton an</button>
+    <button id="install-btn" class="mini-btn" type="button" hidden>📲 App installieren</button>
+  </footer>
+</section>
+
+<!-- ============ Auswahl ============ -->
+<section id="screen-select" class="screen">
+  <header class="leiste">
+    <button class="zurueck" data-nav="home" type="button" aria-label="Zurück zum Start">←</button>
+    <h2 id="select-titel">Auswahl</h2>
+  </header>
+
+  <div class="slots">
+    <button id="slot-a" class="slot slot-a" type="button">
+      <span class="slot-marke">A</span>
+      <span class="slot-inhalt"><span class="slot-leer">?</span></span>
+      <span class="slot-name">antippen oder sprechen</span>
+    </button>
+    <div class="slot-vs">VS</div>
+    <button id="slot-b" class="slot slot-b" type="button">
+      <span class="slot-marke">B</span>
+      <span class="slot-inhalt"><span class="slot-leer">?</span></span>
+      <span class="slot-name">antippen oder sprechen</span>
+    </button>
+  </div>
+
+  <div class="sprach-zeile">
+    <button id="mikro-btn" class="mikro" type="button" aria-label="Mit Sprache auswählen">
+      <span class="mikro-icon">🎤</span>
+      <span class="mikro-text">Sag: „Frankreich gegen Senegal“</span>
+    </button>
+  </div>
+  <p id="sprach-status" class="sprach-status" role="status" aria-live="polite"></p>
+
+  <div class="filter-zeile">
+    <div id="filter-chips" class="chips"></div>
+    <label class="suche">
+      <span class="suche-icon">🔎</span>
+      <input id="suchfeld" type="search" placeholder="suchen…" autocomplete="off" aria-label="Suchen">
+    </label>
+  </div>
+
+  <div id="grid" class="grid"></div>
+
+  <div class="start-leiste">
+    <button id="start-btn" class="gross-btn" type="button" disabled>⚔️ Los geht’s!</button>
+    <button id="zufall-btn" class="mini-btn" type="button">🎲 Zufall</button>
+  </div>
+</section>
+
+<!-- ============ Duell ============ -->
+<section id="screen-duel" class="screen">
+  <header class="leiste">
+    <button class="zurueck" data-nav="select" type="button" aria-label="Zurück zur Auswahl">←</button>
+    <h2 id="duel-titel">Duell</h2>
+    <button id="skip-btn" class="mini-btn kopf-btn" type="button">⏩ alles zeigen</button>
+  </header>
+
+  <div id="duell-kopf" class="duell-kopf"></div>
+  <div id="kategorien" class="kategorien"></div>
+  <div id="ergebnis" class="ergebnis" aria-live="polite"></div>
+  <div id="extras" class="extras"></div>
+
+  <div class="start-leiste">
+    <button id="nochmal-btn" class="gross-btn" type="button">🔁 Neues Duell</button>
+    <button id="tausch-btn" class="mini-btn" type="button">🔄 Seiten tauschen</button>
+  </div>
+</section>
+
+<div id="konfetti" class="konfetti" aria-hidden="true"></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
