@@ -25,13 +25,29 @@ export const TOPICS = {
     tile: 'flag',
     duell: true,
     items: NATIONALTEAMS,
+    filters: [
+      { key:'alle',     label:'Alle' },
+      { key:'wm',       label:'🏆 WM-Teams',   match:t=>t.wmTeilnahmen > 0 },
+      { key:'UEFA',     label:'Europa',        match:t=>t.konf === 'UEFA' },
+      { key:'CONMEBOL', label:'Südamerika',    match:t=>t.konf === 'CONMEBOL' },
+      { key:'CONCACAF', label:'Nordamerika',   match:t=>t.konf === 'CONCACAF' },
+      { key:'CAF',      label:'Afrika',        match:t=>t.konf === 'CAF' },
+      { key:'AFC',      label:'Asien',         match:t=>t.konf === 'AFC' },
+      { key:'OFC',      label:'Ozeanien',      match:t=>t.konf === 'OFC' },
+    ],
     categories: [
-      { key:'wmTeilnahmen', label:'WM-Teilnahmen',      icon:'🏆', better:'higher', value:t=>t.wmTeilnahmen, text:t=>`${num(t.wmTeilnahmen)}×` },
-      { key:'wmSpiele',     label:'WM-Spiele gesamt',   icon:'⚽', better:'higher', value:t=>t.wmSpiele,     text:t=>`${num(t.wmSpiele)}` },
-      { key:'wmTabelle',    label:'Ewige WM-Tabelle',   icon:'📊', better:'lower',  value:t=>t.wmTabelle,    text:t=>`Platz ${num(t.wmTabelle)}` },
-      { key:'erstesSpiel',  label:'Erstes Länderspiel', icon:'📜', better:'lower',  value:t=>t.erstesSpiel,  text:t=>`${t.erstesSpiel}` },
+      { key:'wmTeilnahmen', label:'WM-Teilnahmen',      icon:'🏆', better:'higher', value:t=>t.wmTeilnahmen,
+        text:t=>t.wmTeilnahmen ? `${num(t.wmTeilnahmen)}×` : 'noch nie' },
+      { key:'wmSpiele',     label:'WM-Spiele gesamt',   icon:'⚽', better:'higher', value:t=>t.wmSpiele,
+        text:t=>`${num(t.wmSpiele)}` },
+      // ohne WM-Teilnahme gibt es keinen Tabellenplatz -> als schlechtester Wert gewertet
+      { key:'wmTabelle',    label:'Ewige WM-Tabelle',   icon:'📊', better:'lower',  value:t=>t.wmTabelle ?? 9999,
+        text:t=>t.wmTabelle ? `Platz ${num(t.wmTabelle)}` : 'nie dabei' },
+      { key:'erstesSpiel',  label:'Erstes Länderspiel', icon:'📜', better:'lower',  value:t=>t.erstesSpiel,
+        text:t=>`${t.erstesSpiel}`, ca:t=>!!t.ca?.includes('erstes') },
       { key:'rekord',       label:'Rekordspieler',      icon:'👑', better:'higher', value:t=>t.rekordspieler.spiele,
-        text:t=>`${num(t.rekordspieler.spiele)} Spiele`, sub:t=>t.rekordspieler.name },
+        text:t=>`${num(t.rekordspieler.spiele)} Spiele`, sub:t=>t.rekordspieler.name ?? 'Name nicht belegt',
+        ca:t=>!!t.ca?.includes('rekord') },
     ],
   },
   clubs: {
@@ -89,8 +105,8 @@ export function compare(topic, a, b) {
     if (va !== vb) winner = (cat.better === 'higher' ? va > vb : va < vb) ? 'a' : 'b';
     return {
       cat, winner,
-      a: { value: va, text: cat.text(a), sub: cat.sub?.(a) },
-      b: { value: vb, text: cat.text(b), sub: cat.sub?.(b) },
+      a: { value: va, text: cat.text(a), sub: cat.sub?.(a), ca: !!cat.ca?.(a) },
+      b: { value: vb, text: cat.text(b), sub: cat.sub?.(b), ca: !!cat.ca?.(b) },
     };
   });
   const punkteA = rows.filter(r => r.winner === 'a').length;

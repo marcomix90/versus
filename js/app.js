@@ -277,12 +277,17 @@ function rendereKategorien() {
     div.dataset.index = i;
     const kranz = (seite) =>
       row.winner === seite ? ` sieger-${seite}` : '';
+    const wert = (seite) =>
+      `<div class="kat-wert${kranz(seite)}">
+         <strong>${row[seite].ca ? '<i class="ca" title="geschätzter Wert">ca.</i> ' : ''}${row[seite].text}</strong>
+         ${row[seite].sub ? `<small>${row[seite].sub}</small>` : ''}
+       </div>`;
     div.innerHTML =
       `<div class="kat-titel">${row.cat.icon} ${row.cat.label}</div>
        <div class="kat-werte">
-         <div class="kat-wert${kranz('a')}"><strong>${row.a.text}</strong>${row.a.sub ? `<small>${row.a.sub}</small>` : ''}</div>
+         ${wert('a')}
          <div class="kat-mitte">${row.winner === 'a' ? '◀' : row.winner === 'b' ? '▶' : '='}</div>
-         <div class="kat-wert${kranz('b')}"><strong>${row.b.text}</strong>${row.b.sub ? `<small>${row.b.sub}</small>` : ''}</div>
+         ${wert('b')}
        </div>`;
     box.appendChild(div);
   });
@@ -470,6 +475,11 @@ function deepLink() {
   const t = TOPICS[p.get('t')];
   if (!t) return false;
   oeffneThema(t.id);
+  const filter = p.get('f');
+  if (filter && (t.filters || []).some(x => x.key === filter)) {
+    state.filter = filter;
+    rendereFilter();
+  }
   const finde = (id) => t.items.find(i => i.id === id);
   state.a = finde(p.get('a')) || null;
   state.b = finde(p.get('b')) || null;

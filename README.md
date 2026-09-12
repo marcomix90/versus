@@ -47,12 +47,14 @@ Danach läuft alles offline.
 ```
 
 Themen: `nations`, `clubs`, `animals`. Die IDs stehen in den Datendateien.
+Mit `&f=<filter>` lässt sich zusätzlich ein Filter vorwählen, z. B.
+`?t=nations&f=OFC` (nur Ozeanien) oder `?t=nations&f=wm` (nur WM-Teilnehmer).
 
 ## Themengebiete
 
 | Thema | Kategorien |
 |---|---|
-| 🌍 Nationalmannschaften (50) | WM-Teilnahmen · WM-Spiele · ewige WM-Tabelle (niedriger besser) · erstes Länderspiel (früher besser) · Rekordspieler |
+| 🌍 Nationalmannschaften (alle 211 FIFA-Mitglieder) | WM-Teilnahmen · WM-Spiele · ewige WM-Tabelle (niedriger besser) · erstes Länderspiel (früher besser) · Rekordspieler |
 | 🏟️ Champions League 26/27 (36) | CL-Teilnahmen · CL-Spiele · Titel (Liga + international) · Gründungsjahr (früher besser) · Rekordspieler |
 | 🦁 Tiere (58, wild + Nutztiere) | Größe · Gewicht · Lebenserwartung · Höchsttempo · Kraft |
 
@@ -79,6 +81,22 @@ Wer in `aliases` Spitznamen einträgt, verbessert damit direkt die Spracherkennu
   sind von Hand kuratiert, Stand ca. Mitte 2025 bzw. nach der WM 2022. Sie sind
   sorgfältig zusammengetragen, aber nicht aus einer Live-Quelle – einzelne Werte
   können von tagesaktuellen Zahlen abweichen.
+* **Nationalmannschaften:** Alle 211 FIFA-Mitglieder sind enthalten (55 UEFA,
+  54 CAF, 46 AFC, 35 CONCACAF, 11 OFC, 10 CONMEBOL) und über Kontinent-Chips
+  filterbar. WM-Teilnahmen und WM-Spiele sind für die 79 WM-Teilnehmer belegt,
+  alle übrigen Verbände stehen korrekt auf 0 bzw. „nie dabei“. Die ewige
+  WM-Tabelle folgt bis etwa Platz 30 der offiziellen Reihenfolge, dahinter ist
+  sie plausibel geordnet. Wo Rekordspieler oder erstes Länderspiel nicht belegt
+  sind – das betrifft vor allem kleine Verbände –, steht im Datensatz
+  `ca:['rekord']` bzw. `ca:['erstes']`, und die App zeigt vor dem Wert ein
+  **„ca."**. Solche Einträge sind Größenordnungen, keine Fakten; wer einen echten
+  Wert kennt, trägt ihn ein und löscht das `ca`.
+* **Duelle ohne WM-Beteiligung:** Treten zwei Länder gegeneinander an, die nie
+  bei einer WM waren, sind drei der fünf Kategorien zwangsläufig unentschieden –
+  entschieden wird dann über erstes Länderspiel und Rekordspieler, und ein 1:1
+  ist möglich. Wer das vermeiden will, ersetzt eine der WM-Kategorien in
+  `js/duel.js` durch eine, die jedes Land hat (z. B. Platz in der
+  FIFA-Weltrangliste).
 * **Champions League 26/27:** Das reale Teilnehmerfeld der Saison ist *nicht*
   eingepflegt – hinterlegt sind 36 plausible Stammgäste. Sobald die echte
   Auslosung feststeht, einfach die Einträge in `data/clubs.js` austauschen.
