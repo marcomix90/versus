@@ -48,14 +48,15 @@ Danach läuft alles offline.
 
 Themen: `nations`, `clubs`, `animals`. Die IDs stehen in den Datendateien.
 Mit `&f=<filter>` lässt sich zusätzlich ein Filter vorwählen, z. B.
-`?t=nations&f=OFC` (nur Ozeanien) oder `?t=nations&f=wm` (nur WM-Teilnehmer).
+`?t=nations&f=OFC` (nur Ozeanien), `?t=nations&f=wm` (nur WM-Teilnehmer) oder
+`?t=clubs&f=t1` (nur Lostopf 1).
 
 ## Themengebiete
 
 | Thema | Kategorien |
 |---|---|
 | 🌍 Nationalmannschaften (alle 211 FIFA-Mitglieder) | WM-Teilnahmen · WM-Spiele · ewige WM-Tabelle (niedriger besser) · erstes Länderspiel (früher besser) · Rekordspieler |
-| 🏟️ Champions League 26/27 (36) | CL-Teilnahmen · CL-Spiele · Titel (Liga + international) · Gründungsjahr (früher besser) · Rekordspieler |
+| 🏟️ Champions League 26/27 (36, echtes Teilnehmerfeld) | CL-Teilnahmen · CL-Spiele · Titel (Liga + international) · Gründungsjahr (früher besser) · Rekordspieler |
 | 🦁 Tiere (58, wild + Nutztiere) | Größe · Gewicht · Lebenserwartung · Höchsttempo · Kraft |
 
 Bei den beiden Fussball-Themen kommen unter dem Ergebnis noch das letzte direkte
@@ -97,10 +98,14 @@ Wer in `aliases` Spitznamen einträgt, verbessert damit direkt die Spracherkennu
   ist möglich. Wer das vermeiden will, ersetzt eine der WM-Kategorien in
   `js/duel.js` durch eine, die jedes Land hat (z. B. Platz in der
   FIFA-Weltrangliste).
-* **Champions League 26/27:** Das reale Teilnehmerfeld der Saison ist *nicht*
-  eingepflegt – hinterlegt sind 36 plausible Stammgäste. Sobald die echte
-  Auslosung feststeht, einfach die Einträge in `data/clubs.js` austauschen.
-* **Direkte Duelle:** In `js/h2h.js` liegen ~40 echte Bilanzen für die bekannten
+* **Champions League 26/27:** Das echte Teilnehmerfeld der Ligaphase ist
+  eingepflegt (36 Vereine, 9 pro Lostopf, in der App per Topf-Chip filterbar).
+  Der UEFA-Klubkoeffizient steht als `kk` im Datensatz; daraus ist `staerke`
+  linear abgeleitet (Bayern 147,5 → 95 … Sabah FK 6,0 → 50). `form` bildet
+  dagegen die aktuelle Spielstärke aus der Platzierung 2025/26 ab – da die
+  Simulation die Form mit 65 % gewichtet, zählt der sportliche Ist-Zustand
+  mehr als die Europapokal-Historie.
+* **Direkte Duelle:** In `js/h2h.js` liegen echte Bilanzen für die bekannten
   Klassiker (Clásico, Bayern–Dortmund, Deutschland–Niederlande …). Für alle
   anderen Paarungen erzeugt ein deterministischer Generator aus den Stärkewerten
   eine plausible Bilanz. Solche Werte sind in der App mit **„≈ geschätzt“**

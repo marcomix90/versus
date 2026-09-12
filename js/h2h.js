@@ -38,7 +38,8 @@ const REAL = {
   'jpn|kor': { siege:17, remis:23, gegen:42, letztes:{ jahr:2025, wettbewerb:'Ostasienmeisterschaft', tore:[1,0] } },
   'mex|usa': { siege:37, remis:19, gegen:24, letztes:{ jahr:2025, wettbewerb:'Gold Cup',           tore:[1,2] } },
   'chi|uru': { siege:19, remis:20, gegen:41, letztes:{ jahr:2024, wettbewerb:'Copa América',       tore:[0,1] } },
-  // --- Vereine ---
+  // --- Vereine (Eintraege zu Clubs ausserhalb des aktuellen Teilnehmerfelds
+  //     bleiben stehen und greifen wieder, sobald der Verein zurueckkehrt) ---
   'fcb|rma': { siege:103,remis:52, gegen:105,letztes:{ jahr:2025, wettbewerb:'La Liga',            tore:[4,3] } },
   'bay|bvb': { siege:70, remis:26, gegen:41, letztes:{ jahr:2025, wettbewerb:'Bundesliga',         tore:[2,1] } },
   'atm|rma': { siege:41, remis:57, gegen:120,letztes:{ jahr:2025, wettbewerb:'Champions League',   tore:[1,0] } },

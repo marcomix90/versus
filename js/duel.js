@@ -60,6 +60,13 @@ export const TOPICS = {
     tile: 'crest',
     duell: true,
     items: CLUBS,
+    filters: [
+      { key:'alle', label:'Alle' },
+      { key:'t1',   label:'Topf 1', match:c=>c.topf === 1 },
+      { key:'t2',   label:'Topf 2', match:c=>c.topf === 2 },
+      { key:'t3',   label:'Topf 3', match:c=>c.topf === 3 },
+      { key:'t4',   label:'Topf 4', match:c=>c.topf === 4 },
+    ],
     categories: [
       { key:'clTeilnahmen', label:'CL-Teilnahmen',    icon:'⭐', better:'higher', value:c=>c.clTeilnahmen, text:c=>`${num(c.clTeilnahmen)}×` },
       { key:'clSpiele',     label:'CL-Spiele gesamt', icon:'⚽', better:'higher', value:c=>c.clSpiele,     text:c=>`${num(c.clSpiele)}` },
@@ -67,7 +74,8 @@ export const TOPICS = {
         text:c=>`${num(c.titel.liga + c.titel.international)}`, sub:c=>`${c.titel.liga} Liga · ${c.titel.international} international` },
       { key:'gruendung',    label:'Gründungsjahr',    icon:'📜', better:'lower',  value:c=>c.gruendung,    text:c=>`${c.gruendung}` },
       { key:'rekord',       label:'Rekordspieler',    icon:'👑', better:'higher', value:c=>c.rekordspieler.spiele,
-        text:c=>`${num(c.rekordspieler.spiele)} Spiele`, sub:c=>c.rekordspieler.name },
+        text:c=>`${num(c.rekordspieler.spiele)} Spiele`, sub:c=>c.rekordspieler.name,
+        ca:c=>!!c.ca?.includes('rekord') },
     ],
   },
   animals: {

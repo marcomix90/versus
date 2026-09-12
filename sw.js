@@ -1,5 +1,5 @@
 /* Service Worker: App-Shell offline verfuegbar halten. */
-const CACHE = 'versus-v2';
+const CACHE = 'versus-v3';
 const DATEIEN = [
   './',
   'index.html',
