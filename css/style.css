@@ -196,6 +196,14 @@ button, input { font-family: inherit; }
   border: 2px solid rgba(255,255,255,.35);
 }
 .wappen.gross { width: 62px; height: 62px; border-radius: 16px; font-size: 18px; }
+/* Wappenbild (optional, lokal): sichtbar erst nach erfolgreichem Laden,
+   sonst bleibt die Farbkachel stehen – kein Flackern, kein alt-Text */
+.wappen-slot { display: grid; place-items: center; }
+.wappen-slot > * { grid-area: 1 / 1; }
+.wappen-slot img { width: 46px; height: 46px; object-fit: contain; opacity: 0; }
+.wappen-slot.gross img { width: 62px; height: 62px; }
+.wappen-slot.mit-bild img { opacity: 1; }
+.wappen-slot.mit-bild .wappen { visibility: hidden; }
 .kachel-land { position: absolute; top: 5px; left: 6px; font-size: 13px; }
 .leer-hinweis { grid-column: 1/-1; text-align: center; color: var(--text-2); padding: 30px 0; }
 

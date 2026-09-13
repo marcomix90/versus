@@ -9,3 +9,6 @@ Thumbs.db
 
 # Logs / temporäre Dateien
 *.log
+
+# Vereinswappen: geschuetztes Material, bleibt lokal (siehe data/logos.js)
+logos/

@@ -2,6 +2,7 @@
 import { TOPICS, topicList, compare, simulate, getH2H } from './duel.js';
 import { Mikrofon, parseDuell, findItem, normalize } from './speech.js';
 import { sounds, tonAn, istAn } from './sound.js';
+import { LOGOS } from '../data/logos.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -93,7 +94,16 @@ function bildFuer(item, gross = false) {
   const t = state.topic;
   if (t.tile === 'crest') {
     const [c1, c2] = item.farben;
-    return `<span class="wappen${gross ? ' gross' : ''}" style="background:linear-gradient(135deg,${c1} 0 50%,${c2} 50% 100%)">${item.kurz}</span>`;
+    const g = gross ? ' gross' : '';
+    // Farbkachel als Grundlage; ein vorhandenes Wappenbild legt sich darueber
+    const farben = `<span class="wappen${g}" style="background:linear-gradient(135deg,${c1} 0 50%,${c2} 50% 100%)">${item.kurz}</span>`;
+    if (!LOGOS.aktiv) return farben;
+    // alt="" – der Vereinsname steht ohnehin unter der Kachel; onload blendet
+    // die Farbkachel erst aus, wenn das Bild wirklich da ist (sonst bleibt sie)
+    return `<span class="wappen-slot${g}">` + farben
+      + `<img src="${LOGOS.ordner}${item.id}${LOGOS.endung}" alt=""`
+      + ` onload="this.parentElement.classList.add('mit-bild')">`
+      + `</span>`;
   }
   return `<span class="kachel-bild"${gross ? ' style="font-size:54px"' : ''}>${t.tile === 'flag' ? item.flag : item.emoji}</span>`;
 }

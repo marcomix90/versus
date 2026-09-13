@@ -1,5 +1,5 @@
 /* Service Worker: App-Shell offline verfuegbar halten. */
-const CACHE = 'versus-v3';
+const CACHE = 'versus-v4';
 const DATEIEN = [
   './',
   'index.html',
@@ -12,6 +12,7 @@ const DATEIEN = [
   'data/nationalteams.js',
   'data/clubs.js',
   'data/animals.js',
+  'data/logos.js',
   'manifest.webmanifest',
   'icons/icon.svg',
   'icons/icon-192.png',

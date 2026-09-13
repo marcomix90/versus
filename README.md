@@ -128,14 +128,38 @@ js/duel.js              Themen + Kategorien, Punktewertung, Simulation
 js/h2h.js               direkte Duelle (echt + Generator)
 js/speech.js            Web Speech API, Fuzzy-Matching, „A gegen B“-Parser
 js/sound.js             Sounds per WebAudio (keine Audiodateien)
-data/*.js               die drei Datensätze
+data/*.js               die drei Datensätze + logos.js (Wappen-Schalter)
 sw.js                   Service Worker (Cache-first, offline)
 manifest.webmanifest    PWA-Manifest
 icons/                  App-Icons (PNG + SVG)
 ```
 
-Vereinswappen sind urheberrechtlich geschützt und deshalb nicht enthalten –
-Vereine werden mit ihren Vereinsfarben und Kürzel als Wappen-Kachel dargestellt.
+## Vereinswappen (optional, nur privat)
+
+Standardmäßig zeigt die App Vereinsfarben und Kürzel als Wappen-Kachel. Echte
+Wappen lassen sich lokal einbinden:
+
+1. Ordner `logos/` anlegen
+2. je Verein eine Bilddatei mit der Vereins-ID ablegen: `logos/bay.png`,
+   `logos/rma.png`, … (IDs stehen in `data/clubs.js`)
+3. in `data/logos.js` `aktiv: true` setzen
+
+Fehlt ein Wappen, bleibt für diesen Verein die Farb-Kachel stehen – es müssen
+also nicht alle 36 auf einmal da sein. Das Bild erscheint erst, wenn es
+tatsächlich geladen wurde; es gibt keinen Zwischenzustand mit kaputtem Bild.
+
+**Warum der Ordner in `.gitignore` steht:** Vereinswappen sind marken- und
+meist urheberrechtlich geschützt. Für den privaten Gebrauch (§ 53 UrhG) darf man
+sie auf den eigenen Geräten nutzen – aber nicht öffentlich zugänglich machen.
+Sobald die App auf GitHub Pages liegt, wäre das eine Veröffentlichung (§ 19a
+UrhG), und die Privatkopie-Schranke greift nicht mehr. Deshalb bleiben die
+Bilder lokal und landen nie im Repository. Wer die Wappen auch unterwegs auf dem
+Handy sehen will, betreibt die App dort lokal (z. B. über einen kleinen Server
+im heimischen WLAN) statt über Pages.
+
+Liveticker-Seiten dürfen Wappen zeigen, weil sie Lizenzverträge haben – meist
+über Datenanbieter wie Opta oder Sportradar, bei denen die Wappenrechte
+mitlizenziert sind. Das ist keine allgemeine Erlaubnis.
 
 Ton lässt sich auf dem Startbildschirm abschalten; die Einstellung bleibt
 gespeichert. `prefers-reduced-motion` wird respektiert (keine Animationen,
