@@ -3,6 +3,7 @@ import { TOPICS, topicList, compare, simulate, getH2H } from './duel.js';
 import { Mikrofon, parseDuell, findItem, normalize } from './speech.js';
 import { sounds, tonAn, istAn } from './sound.js';
 import { LOGOS } from '../data/logos.js';
+import { TIERICONS } from '../data/tiericons.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -105,7 +106,18 @@ function bildFuer(item, gross = false) {
       + ` onload="this.parentElement.classList.add('mit-bild')">`
       + `</span>`;
   }
+  if (t.tile === 'emoji' && item.svg) {
+    return `<span class="tier-svg${gross ? ' gross' : ''}">${TIERICONS[item.svg] ?? ''}</span>`;
+  }
   return `<span class="kachel-bild"${gross ? ' style="font-size:54px"' : ''}>${t.tile === 'flag' ? item.flag : item.emoji}</span>`;
+}
+
+/** kleines Symbol fuer Banner und Fliesstext (Emoji oder Piktogramm). */
+function symbolFuer(item) {
+  const t = state.topic;
+  if (t.tile === 'flag') return item.flag;
+  if (t.tile === 'crest') return '🏆';
+  return item.svg ? `<span class="tier-svg klein">${TIERICONS[item.svg] ?? ''}</span>` : item.emoji;
 }
 
 function rendereGrid() {
@@ -336,7 +348,7 @@ function zeigeErgebnis() {
   $('#ergebnis').innerHTML =
     `<div class="sieger-banner ${sieger}">
        ${gewinner
-         ? `<span class="gross">${state.topic.tile === 'flag' ? gewinner.flag : state.topic.tile === 'emoji' ? gewinner.emoji : '🏆'}</span>
+         ? `<span class="gross">${symbolFuer(gewinner)}</span>
             <span>${gewinner.name} gewinnt ${Math.max(punkteA, punkteB)} : ${Math.min(punkteA, punkteB)}</span>`
          : `<span class="gross">🤝</span><span>Unentschieden ${punkteA} : ${punkteB}</span>`}
      </div>`;
@@ -413,8 +425,8 @@ function faktenBox() {
   div.className = 'box';
   div.innerHTML =
     `<h3>💡 Wusstest du?</h3>
-     <p class="tier-fact"><b>${state.a.emoji} ${state.a.name}:</b> ${state.a.fact}</p>
-     <p class="tier-fact"><b>${state.b.emoji} ${state.b.name}:</b> ${state.b.fact}</p>`;
+     <p class="tier-fact"><b>${symbolFuer(state.a)} ${state.a.name}:</b> ${state.a.fact}</p>
+     <p class="tier-fact"><b>${symbolFuer(state.b)} ${state.b.name}:</b> ${state.b.fact}</p>`;
   return div;
 }
 

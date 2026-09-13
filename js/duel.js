@@ -14,6 +14,9 @@ const masse  = (kg) => kg >= 1000 ? `${num(kg / 1000, 1)} t`
 const jahre  = (a) => a === 1 ? '1 Jahr' : a >= 1 ? `${num(a)} Jahre` : `${num(a * 365, 0)} Tage`;
 const tempo  = (v) => `${num(v, v < 10 ? 2 : 0)} km/h`;
 
+/** Was genau bei "Größe" gemessen wird – steht als Unterzeile im Duell. */
+const MASSART = { laenge:'Länge', hoehe:'Höhe', spannweite:'Flügelspannweite', beine:'Beinspannweite' };
+
 export const TOPICS = {
   nations: {
     id: 'nations',
@@ -94,11 +97,12 @@ export const TOPICS = {
       { key:'nutztier', label:'Nutztiere',  match:a=>a.art === 'nutztier' },
     ],
     categories: [
-      { key:'groesse', label:'Größe',           icon:'📏', better:'higher', value:a=>a.groesse, text:a=>laenge(a.groesse) },
+      { key:'groesse', label:'Größe',           icon:'📏', better:'higher', value:a=>a.groesse, text:a=>laenge(a.groesse),
+        sub:a=>MASSART[a.mass] ?? 'Länge' },
       { key:'gewicht', label:'Gewicht',         icon:'⚖️', better:'higher', value:a=>a.gewicht, text:a=>masse(a.gewicht) },
       { key:'leben',   label:'Lebenserwartung', icon:'🎂', better:'higher', value:a=>a.leben,   text:a=>jahre(a.leben) },
       { key:'tempo',   label:'Höchsttempo',     icon:'💨', better:'higher', value:a=>a.tempo,   text:a=>tempo(a.tempo) },
-      { key:'kraft',   label:'Kraft',           icon:'💪', better:'higher', value:a=>a.kraft,   text:a=>`${num(a.kraft)} Punkte` },
+      { key:'kraft',   label:'Kraft',           icon:'💪', better:'higher', value:a=>a.kraft,   text:a=>`${num(a.kraft)} ${a.kraft === 1 ? 'Punkt' : 'Punkte'}` },
     ],
   },
 };

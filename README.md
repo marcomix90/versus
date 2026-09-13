@@ -57,11 +57,30 @@ Mit `&f=<filter>` lässt sich zusätzlich ein Filter vorwählen, z. B.
 |---|---|
 | 🌍 Nationalmannschaften (alle 211 FIFA-Mitglieder) | WM-Teilnahmen · WM-Spiele · ewige WM-Tabelle (niedriger besser) · erstes Länderspiel (früher besser) · Rekordspieler |
 | 🏟️ Champions League 26/27 (36, echtes Teilnehmerfeld) | CL-Teilnahmen · CL-Spiele · Titel (Liga + international) · Gründungsjahr (früher besser) · Rekordspieler |
-| 🦁 Tiere (58, wild + Nutztiere) | Größe · Gewicht · Lebenserwartung · Höchsttempo · Kraft |
+| 🦁 Tiere (69, wild + Nutztiere) | Größe · Gewicht · Lebenserwartung · Höchsttempo · Kraft |
 
 Bei den beiden Fussball-Themen kommen unter dem Ergebnis noch das letzte direkte
 Duell, die Gesamtbilanz (Siege A / Unentschieden / Siege B) und ein simuliertes
 Spiel dazu. Bei den Tieren gibt es stattdessen zu jedem Tier einen Fun Fact.
+
+**Größe bei Tieren** meint je nach Art etwas anderes; welches Maß gilt, steht im
+Duell unter dem Wert und im Datensatz im Feld `mass`:
+
+| `mass` | Anzeige | gilt für |
+|---|---|---|
+| `spannweite` | Flügelspannweite | alle flugfähigen Vögel |
+| `hoehe` | Höhe | Elefant, Giraffe, Gorilla, Strauß, Pinguin, Pferd … |
+| `beine` | Beinspannweite | Vogelspinne |
+| `laenge` | Länge | alle übrigen |
+
+Strauß und Pinguin behalten die Körperhöhe – bei flugunfähigen Vögeln wäre die
+Spannweite irreführend.
+
+**Tier-Bilder:** Die meisten Tiere nutzen Emojis. Für Arten ohne passendes Emoji
+(Vogelstrauß, Mäusebussard, Rotmilan, Meerschweinchen, Salamander, Kohlmeise,
+Rotkehlchen, Krähe) liegen in `data/tiericons.js` selbst gezeichnete SVG-Pikto­
+gramme – rechtlich unbedenklich, skalierbar und offline verfügbar. Ein Tier
+verweist über das Feld `svg` darauf; alle anderen nutzen `emoji`.
 
 ## Datenpflege
 
@@ -128,7 +147,8 @@ js/duel.js              Themen + Kategorien, Punktewertung, Simulation
 js/h2h.js               direkte Duelle (echt + Generator)
 js/speech.js            Web Speech API, Fuzzy-Matching, „A gegen B“-Parser
 js/sound.js             Sounds per WebAudio (keine Audiodateien)
-data/*.js               die drei Datensätze + logos.js (Wappen-Schalter)
+data/*.js               die drei Datensätze, tiericons.js (SVG-Piktogramme)
+                        und logos.js (Wappen-Schalter)
 sw.js                   Service Worker (Cache-first, offline)
 manifest.webmanifest    PWA-Manifest
 icons/                  App-Icons (PNG + SVG)
